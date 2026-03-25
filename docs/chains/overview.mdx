@@ -1,0 +1,45 @@
+---
+title: "Chain Adapters"
+description: "LogHaven adapters normalize events from any chain into a unified format"
+---
+
+Chain adapters translate raw chain data (transactions, logs, traces) into LogHaven's unified event format. Each adapter runs as a plugin inside the daemon.
+
+## Supported chains
+
+| Chain | Status | Adapter key |
+|---|---|---|
+| Ethereum | Stable | `ethereum` |
+| Base | Stable | `base` |
+| Arbitrum | Stable | `arbitrum` |
+| Optimism | Stable | `optimism` |
+| Solana | Stable | `solana` |
+| Stellar | Beta | `stellar` |
+
+## Enable an adapter
+
+```toml
+[adapters.ethereum]
+enabled = true
+rpc     = "https://mainnet.infura.io/v3/YOUR_KEY"
+```
+
+## Unified event format
+
+All adapters emit events in a normalized schema:
+
+```json
+{
+  "id": "0x4a3f...b92d",
+  "chain": "ethereum",
+  "block": 21847302,
+  "timestamp": "2026-01-15T14:32:01Z",
+  "type": "transaction",
+  "status": "confirmed",
+  "gas_used": 142847,
+  "logs": [...],
+  "traces": [...]
+}
+```
+
+This lets you correlate events across chains using a single query interface.

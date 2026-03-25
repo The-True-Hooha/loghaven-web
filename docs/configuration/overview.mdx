@@ -1,0 +1,58 @@
+---
+title: "Configuration"
+description: "Configure LogHaven via config.toml"
+---
+
+LogHaven uses a single TOML config file at `~/.loghaven/config.toml` (Linux/macOS) or `%USERPROFILE%\.loghaven\config.toml` (Windows).
+
+## Generate default config
+
+```bash
+loghaven init
+```
+
+## Full config reference
+
+```toml
+# ~/.loghaven/config.toml
+
+[daemon]
+socket   = "/tmp/loghaven.sock"   # Unix socket path (Linux/macOS)
+# pipe   = "\\\\.\\pipe\\loghaven" # Named pipe (Windows)
+log_level = "info"                 # debug | info | warn | error
+
+[ingest]
+host = "127.0.0.1"
+port = 7430
+
+[storage]
+backend = "local"                  # local | s3 | r2 | minio
+path    = "~/.loghaven/data"       # used when backend = "local"
+
+[adapters.ethereum]
+enabled = false
+rpc     = ""
+
+[adapters.solana]
+enabled = false
+rpc     = "https://api.mainnet-beta.solana.com"
+
+[adapters.stellar]
+enabled = false
+horizon = "https://horizon.stellar.org"
+```
+
+## Sections
+
+| Section | Description |
+|---|---|
+| `[daemon]` | IPC socket path, log level |
+| `[ingest]` | HTTP ingest endpoint host/port |
+| `[storage]` | Storage backend and credentials |
+| `[adapters.*]` | Per-chain adapter config |
+
+## Next steps
+
+- [Profiles](/configuration/profiles) — manage dev/staging/prod configs
+- [Storage backends](/configuration/storage) — S3, R2, MinIO setup
+- [Environment variables](/configuration/env-vars) — override config with env vars

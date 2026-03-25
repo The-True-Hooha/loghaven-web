@@ -1,0 +1,40 @@
+---
+title: "macOS"
+description: "Install LogHaven on macOS"
+---
+
+## Install script (recommended)
+
+```bash
+curl -fsSL https://install.loghaven.dev | sh
+```
+
+## Homebrew
+
+```bash
+brew tap loghaven/tap
+brew install loghaven
+```
+
+## Cargo
+
+```bash
+cargo install loghaven
+```
+
+## Verify
+
+```bash
+loghaven --version
+```
+
+## Run as a launchd service
+
+```bash
+loghaven service install
+launchctl load ~/Library/LaunchAgents/dev.loghaven.plist
+```
+
+## Next step
+
+[Initialize your config](/quickstart#2-initialize-config)

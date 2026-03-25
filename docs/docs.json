@@ -1,0 +1,144 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "LogHaven",
+  "url": "https://docs.loghaven.dev",
+  "colors": {
+    "primary": "#2BFFB0",
+    "light": "#2BFFB0",
+    "dark": "#1A9970"
+  },
+  "logo": {
+    "light": "/logo/light.svg",
+    "dark": "/logo/dark.svg",
+    "href": "https://loghaven.dev"
+  },
+  "favicon": "/favicon.svg",
+  "fonts": {
+    "heading": {
+      "family": "Space Grotesk"
+    },
+    "body": {
+      "family": "DM Sans"
+    }
+  },
+  "navbar": {
+    "links": [
+      {
+        "type": "github",
+        "href": "https://github.com/The-True-Hooha/loghaven"
+      }
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Get Started",
+      "href": "/installation/linux"
+    }
+  },
+  "footer": {
+    "socials": {
+      "github": "https://github.com/The-True-Hooha/loghaven",
+      "x": "https://x.com/loghaven"
+    },
+    "links": [
+      {
+        "header": "Product",
+        "items": [
+          { "label": "Landing Page", "href": "https://loghaven.dev" },
+          { "label": "Changelog", "href": "https://loghaven.dev/changelog" },
+          { "label": "Roadmap", "href": "https://github.com/The-True-Hooha/loghaven/projects" }
+        ]
+      },
+      {
+        "header": "Community",
+        "items": [
+          { "label": "GitHub Issues", "href": "https://github.com/The-True-Hooha/loghaven/issues" },
+          { "label": "Contributing", "href": "/contributing" },
+          { "label": "Security", "href": "/security" }
+        ]
+      }
+    ]
+  },
+  "navigation": {
+    "global": {
+      "anchors": [
+        {
+          "anchor": "GitHub",
+          "href": "https://github.com/The-True-Hooha/loghaven",
+          "icon": "github"
+        }
+      ]
+    },
+    "tabs": [
+      {
+        "tab": "Guides",
+        "groups": [
+          {
+            "group": "Getting Started",
+            "pages": [
+              "introduction",
+              "quickstart"
+            ]
+          },
+          {
+            "group": "Installation",
+            "pages": [
+              "installation/linux",
+              "installation/macos",
+              "installation/windows",
+              "installation/cargo"
+            ]
+          },
+          {
+            "group": "Configuration",
+            "pages": [
+              "configuration/overview",
+              "configuration/profiles",
+              "configuration/storage",
+              "configuration/env-vars"
+            ]
+          },
+          {
+            "group": "Chain Adapters",
+            "pages": [
+              "chains/overview",
+              "chains/ethereum",
+              "chains/solana",
+              "chains/stellar",
+              "chains/base"
+            ]
+          },
+          {
+            "group": "Observability",
+            "pages": [
+              "observability/observability-as-code",
+              "observability/transactions",
+              "observability/cross-chain"
+            ]
+          },
+          {
+            "group": "Security",
+            "pages": [
+              "security",
+              "contributing"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Architecture",
+        "groups": [
+          {
+            "group": "How It Works",
+            "pages": [
+              "architecture/overview",
+              "architecture/daemon",
+              "architecture/adapters",
+              "architecture/storage"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

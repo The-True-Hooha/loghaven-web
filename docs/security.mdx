@@ -1,0 +1,39 @@
+---
+title: "Security"
+description: "LogHaven's security model — even we can't read your logs"
+---
+
+## Client-side encryption
+
+Data is encrypted **before** it leaves the agent. You hold the encryption keys. LogHaven never sees plaintext log data.
+
+- Algorithm: AES-256-GCM
+- Keys stored in: `~/.loghaven/keys/` (never transmitted)
+- Key rotation: `loghaven keys rotate`
+
+## Short-lived ingest tokens
+
+The ingest endpoint (`localhost:7430`) uses short-lived tokens. Rotate or destroy them anytime:
+
+```bash
+loghaven token rotate
+loghaven token revoke <token-id>
+```
+
+## Zero raw data retention
+
+LogHaven stores nothing. Your storage backend is the only copy. Delete it yourself at any time:
+
+```bash
+loghaven storage purge --chain ethereum --before 2026-01-01
+```
+
+Or set a bucket lifecycle policy to auto-expire.
+
+## Fully auditable pipeline
+
+The daemon is open source. Every byte that flows through it is inspectable at [github.com/The-True-Hooha/loghaven](https://github.com/The-True-Hooha/loghaven).
+
+## Reporting a vulnerability
+
+Please report security vulnerabilities privately via GitHub's security advisory feature — not as public issues.

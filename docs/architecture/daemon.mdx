@@ -1,0 +1,45 @@
+---
+title: "Daemon"
+description: "The LogHaven daemon runtime"
+---
+
+The daemon is the core process. It starts at `loghaven start` and runs in the background.
+
+## Responsibilities
+
+- Accept events from the HTTP ingest endpoint (`localhost:7430`)
+- Poll chain adapters for new transactions and logs
+- Index events by tx hash, chain, timestamp, and correlation ID
+- Encrypt and write batches to the storage backend
+- Serve queries from CLI/TUI clients over IPC
+
+## Start / stop
+
+```bash
+loghaven start             # foreground
+loghaven start --detach    # background (daemon mode)
+loghaven stop
+loghaven status
+```
+
+## IPC socket
+
+On Linux/macOS, the daemon binds to `/tmp/loghaven.sock` by default. Configure in `config.toml`:
+
+```toml
+[daemon]
+socket = "/tmp/loghaven.sock"
+```
+
+On Windows, it uses a named pipe:
+
+```toml
+[daemon]
+pipe = "\\\\.\\pipe\\loghaven"
+```
+
+## Logs
+
+```bash
+loghaven daemon logs --tail 100
+```

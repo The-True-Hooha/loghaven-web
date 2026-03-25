@@ -1,0 +1,45 @@
+---
+title: "Linux"
+description: "Install LogHaven on Linux"
+---
+
+## Install script (recommended)
+
+```bash
+curl -fsSL https://install.loghaven.dev | sh
+```
+
+This installs the `loghaven` binary to `/usr/local/bin` and the daemon service unit.
+
+## Manual install
+
+Download the latest binary from [GitHub Releases](https://github.com/The-True-Hooha/loghaven/releases):
+
+```bash
+# Download
+curl -LO https://github.com/The-True-Hooha/loghaven/releases/latest/download/loghaven-linux-amd64.tar.gz
+
+# Extract
+tar -xzf loghaven-linux-amd64.tar.gz
+
+# Move to PATH
+sudo mv loghaven /usr/local/bin/
+```
+
+## Verify
+
+```bash
+loghaven --version
+# loghaven 0.3.0
+```
+
+## Run as a systemd service
+
+```bash
+loghaven service install
+sudo systemctl enable --now loghaven
+```
+
+## Next step
+
+[Initialize your config](/quickstart#2-initialize-config)

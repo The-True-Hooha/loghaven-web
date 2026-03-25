@@ -1,0 +1,63 @@
+---
+title: "Storage Backends"
+description: "Configure where LogHaven writes your data"
+---
+
+LogHaven writes directly to storage you control. Raw log data never touches LogHaven infrastructure.
+
+## Local filesystem
+
+```toml
+[storage]
+backend = "local"
+path    = "~/.loghaven/data"
+```
+
+## Cloudflare R2
+
+```toml
+[storage]
+backend          = "r2"
+bucket           = "my-logs"
+account_id       = "${CF_ACCOUNT_ID}"
+access_key_id    = "${CF_ACCESS_KEY_ID}"
+secret_access_key = "${CF_SECRET_ACCESS_KEY}"
+```
+
+## AWS S3
+
+```toml
+[storage]
+backend          = "s3"
+bucket           = "my-logs"
+region           = "us-east-1"
+access_key_id    = "${AWS_ACCESS_KEY_ID}"
+secret_access_key = "${AWS_SECRET_ACCESS_KEY}"
+```
+
+## MinIO
+
+```toml
+[storage]
+backend          = "minio"
+endpoint         = "http://localhost:9000"
+bucket           = "loghaven"
+access_key_id    = "${MINIO_ACCESS_KEY}"
+secret_access_key = "${MINIO_SECRET_KEY}"
+```
+
+## Lifecycle policies
+
+We recommend setting a lifecycle policy on your bucket to auto-expire old logs:
+
+```json
+{
+  "Rules": [{
+    "Status": "Enabled",
+    "Expiration": { "Days": 90 },
+    "Filter": { "Prefix": "loghaven/" }
+  }]
+}
+```
+
+This keeps your storage costs predictable and your data footprint minimal.

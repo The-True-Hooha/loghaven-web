@@ -1,0 +1,46 @@
+---
+title: "Ethereum (EVM)"
+description: "Configure the EVM adapter for Ethereum, Base, Arbitrum, and Optimism"
+---
+
+The EVM adapter works with any EVM-compatible chain.
+
+## Config
+
+```toml
+[adapters.ethereum]
+enabled  = true
+rpc      = "https://mainnet.infura.io/v3/YOUR_KEY"
+chain_id = 1
+
+[adapters.base]
+enabled  = true
+rpc      = "https://mainnet.base.org"
+chain_id = 8453
+
+[adapters.arbitrum]
+enabled  = true
+rpc      = "https://arb1.arbitrum.io/rpc"
+chain_id = 42161
+```
+
+## What it captures
+
+- Transactions (confirmed + pending)
+- Event logs (decoded ABI if ABI provided)
+- Internal traces (requires `debug_traceTransaction` support)
+- Gas usage per transaction and block
+
+## Providing an ABI for log decoding
+
+```toml
+[adapters.ethereum]
+enabled = true
+rpc     = "https://mainnet.infura.io/v3/YOUR_KEY"
+
+[[adapters.ethereum.contracts]]
+address = "0xYourContractAddress"
+abi     = "./abis/MyContract.json"
+```
+
+LogHaven will decode matching event logs and include the decoded fields in the event payload.

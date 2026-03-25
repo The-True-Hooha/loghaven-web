@@ -1,0 +1,26 @@
+---
+title: "Stellar"
+description: "Configure the Stellar adapter"
+---
+
+## Config
+
+```toml
+[adapters.stellar]
+enabled = true
+horizon = "https://horizon.stellar.org"
+```
+
+## What it captures
+
+- Operations and transactions
+- Ledger entries
+- Account activity for watched addresses
+
+## Watch an account
+
+```toml
+[[adapters.stellar.accounts]]
+address = "GXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+label   = "treasury"
+```

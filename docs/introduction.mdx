@@ -1,0 +1,48 @@
+---
+title: "Introduction"
+description: "LogHaven is a local-first, composable observability runtime for onchain and off-chain systems."
+---
+
+## What is LogHaven?
+
+LogHaven is an **open-source observability runtime** that runs on your infrastructure. One agent ingests logs, traces, and metrics from any chain or off-chain system — and writes them directly to storage you control.
+
+No ingestion fees. No vendor lock-in. No surprises.
+
+## Core principles
+
+<CardGroup cols={2}>
+  <Card title="You own your data" icon="lock">
+    Logs are encrypted before leaving the agent. They're written to your S3, R2, MinIO, or local disk — never ours.
+  </Card>
+  <Card title="Local-first" icon="server">
+    The runtime runs as a local daemon. No cloud dependency required to ingest, query, or analyze.
+  </Card>
+  <Card title="Chain-agnostic" icon="link">
+    Native adapters for Ethereum, Base, Arbitrum, Optimism, Solana, and Stellar. Off-chain logs via HTTP ingest.
+  </Card>
+  <Card title="Observability as Code" icon="code">
+    Define observation rules in YAML. Commit them to your repo. The agent enforces them automatically.
+  </Card>
+</CardGroup>
+
+## How it works
+
+```
+Chains & Sources → Chain Adapters → Local Daemon → Your Storage
+                                         ↓
+                                   Dashboard / AI Copilot
+```
+
+The LogHaven daemon runs locally, normalizes events from any chain adapter, indexes them, and writes encrypted data to your chosen storage backend.
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Quickstart" icon="rocket" href="/quickstart">
+    Get LogHaven running in under 2 minutes
+  </Card>
+  <Card title="Installation" icon="download" href="/installation/linux">
+    Install on Linux, macOS, or Windows
+  </Card>
+</CardGroup>

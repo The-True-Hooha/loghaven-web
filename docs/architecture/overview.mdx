@@ -1,0 +1,48 @@
+---
+title: "Architecture Overview"
+description: "How LogHaven's daemon-based runtime works"
+---
+
+LogHaven runs as a local daemon process. All client tools (CLI, TUI, dashboard, API) communicate with the daemon over IPC — a Unix socket on Linux/macOS, a named pipe on Windows.
+
+## Component diagram
+
+```
+┌─────────────────────────────────────────┐
+│              UI LAYER                   │
+│   CLI · TUI · Dashboard · REST API      │
+└──────────────────┬──────────────────────┘
+                   │ IPC (Unix socket / Named pipe)
+                   ▼
+         ┌─────────────────┐
+         │  Daemon Runtime │
+         │  ─────────────  │
+         │  Ingestion      │
+         │  Transaction    │
+         │  Indexer        │
+         │  Event Engine   │
+         └────────┬────────┘
+          ┌───────┴───────┐
+          ▼               ▼
+  ┌──────────────┐  ┌──────────────┐
+  │Chain Adapters│  │Storage Engine│
+  │  ETH · SOL   │  │ S3 · R2 ·   │
+  │  Stellar · + │  │ MinIO · FS  │
+  └──────────────┘  └──────────────┘
+```
+
+## Key design decisions
+
+**Local-first** — The daemon runs on your machine. No cloud dependency for ingestion or querying.
+
+**IPC over HTTP** — Client tools talk to the daemon over a socket, not over a network port. The ingest endpoint (`localhost:7430`) is for your app to send events, not for client tool communication.
+
+**Plugin-based adapters** — Each chain adapter is a separate plugin. Add new chains without modifying the core daemon.
+
+**Encrypted at rest** — Data is encrypted before being written to the storage backend. Keys are held by you.
+
+## Pages
+
+- [Daemon](/architecture/daemon)
+- [Chain Adapters](/architecture/adapters)
+- [Storage Engine](/architecture/storage)

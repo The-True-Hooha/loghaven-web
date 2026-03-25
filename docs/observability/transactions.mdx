@@ -1,0 +1,41 @@
+---
+title: "Transaction-Centric Observability"
+description: "Every log, trace, and metric anchored to a transaction hash"
+---
+
+LogHaven anchors all telemetry to a transaction hash. One `tx` gives you full system context across chains.
+
+## Query by transaction
+
+```bash
+loghaven query tx 0x4a3f...b92d
+```
+
+```
+Tx      0x4a3f...b92d
+Chain   Ethereum Mainnet
+Status  ✓ Confirmed
+Block   21,847,302
+Gas     142,847
+Logs    3 events
+Traces  7 spans
+Time    2026-01-15T14:32:01Z
+```
+
+## View logs for a tx
+
+```bash
+loghaven logs --tx 0x4a3f...b92d
+```
+
+## View traces for a tx
+
+```bash
+loghaven traces --tx 0x4a3f...b92d --format tree
+```
+
+## Export
+
+```bash
+loghaven query tx 0x4a3f...b92d --output json > incident-2026-01-15.json
+```

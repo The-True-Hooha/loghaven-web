@@ -1,0 +1,60 @@
+---
+title: "Profiles"
+description: "Manage separate configs for dev, staging, and production"
+---
+
+Profiles let you maintain multiple configurations and switch between them with a single flag.
+
+## Create a profile
+
+```bash
+loghaven init --profile prod
+# Creates ~/.loghaven/profiles/prod.toml
+```
+
+## Start with a profile
+
+```bash
+loghaven start --profile prod
+```
+
+## Profile file location
+
+```
+~/.loghaven/
+  config.toml          ← default profile
+  profiles/
+    prod.toml
+    staging.toml
+    local-dev.toml
+```
+
+## Example production profile
+
+```toml
+# ~/.loghaven/profiles/prod.toml
+
+[daemon]
+log_level = "warn"
+
+[storage]
+backend = "r2"
+bucket  = "my-prod-logs"
+region  = "auto"
+
+[adapters.ethereum]
+enabled = true
+rpc     = "${ETH_RPC_URL}"
+
+[adapters.solana]
+enabled = true
+rpc     = "${SOL_RPC_URL}"
+```
+
+## Environment variable overrides
+
+Any config value can be overridden with the `LOGHAVEN_` prefix:
+
+```bash
+LOGHAVEN_STORAGE_BUCKET=my-logs loghaven start --profile prod
+```

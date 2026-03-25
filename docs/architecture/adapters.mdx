@@ -1,0 +1,33 @@
+---
+title: "Chain Adapters"
+description: "How adapters normalize chain data into LogHaven events"
+---
+
+Each chain adapter is a plugin that runs inside the daemon. It polls the chain (or subscribes via WebSocket) and emits normalized events into the daemon's ingestion pipeline.
+
+## Adapter lifecycle
+
+1. Daemon starts → loads enabled adapters from config
+2. Each adapter opens a connection to its RPC/node
+3. Adapter polls for new blocks/transactions at a configurable interval
+4. Raw chain data is normalized into LogHaven's event schema
+5. Events are passed to the indexer and storage engine
+
+## Normalization
+
+Raw chain data varies wildly across chains. Adapters handle all chain-specific parsing:
+
+- EVM: decode RLP-encoded transactions, parse receipt logs, trace calls
+- Solana: parse Borsh-encoded instruction data, map accounts
+- Stellar: parse XDR operations and effects
+
+All adapters emit the same event shape, so queries work identically across chains.
+
+## Custom adapters
+
+Custom adapters can be implemented using the LogHaven adapter SDK (coming soon). They are loaded as dynamic plugins from a configured path:
+
+```toml
+[daemon]
+plugin_dir = "~/.loghaven/plugins"
+```

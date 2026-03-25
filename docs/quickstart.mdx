@@ -1,0 +1,72 @@
+---
+title: "Quickstart"
+description: "Get LogHaven running in under 2 minutes"
+---
+
+## 1. Install
+
+<CodeGroup>
+```bash Linux / macOS
+curl -fsSL https://install.loghaven.dev | sh
+```
+
+```powershell Windows
+irm https://install.loghaven.dev/windows | iex
+```
+
+```bash Cargo
+cargo install loghaven
+```
+</CodeGroup>
+
+## 2. Initialize config
+
+```bash
+loghaven init
+```
+
+This creates `~/.loghaven/config.toml` with sensible defaults.
+
+## 3. Start the daemon
+
+```bash
+loghaven start
+```
+
+```
+◈ LogHaven v0.3.0 starting...
+  ✓ Config loaded        (~/.loghaven/config.toml)
+  ✓ Storage backend      local://~/.loghaven/data
+  ✓ Ingest endpoint      http://localhost:7430
+
+● Agent running  •  Watching 0 chains  •  0 events buffered
+```
+
+## 4. Add a chain adapter
+
+```toml
+# ~/.loghaven/config.toml
+[adapters.ethereum]
+enabled = true
+rpc     = "https://mainnet.infura.io/v3/YOUR_KEY"
+```
+
+Restart the daemon:
+
+```bash
+loghaven restart
+```
+
+## 5. View logs
+
+```bash
+loghaven logs --chain ethereum --tail 50
+```
+
+<Check>You're now ingesting onchain events into your local storage.</Check>
+
+## Next steps
+
+- [Configure storage backends](/configuration/storage) — switch from local to S3/R2/MinIO
+- [Set up profiles](/configuration/profiles) — separate configs for dev/staging/prod
+- [Observability as Code](/observability/observability-as-code) — define rules in YAML

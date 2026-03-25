@@ -1,0 +1,62 @@
+---
+title: "Observability as Code"
+description: "Define observation rules in YAML, commit them to your repo"
+---
+
+LogHaven lets you declare what to watch, when to watch it, and for how long — in a versioned YAML file.
+
+## Create a rules file
+
+```bash
+touch loghaven.observe.yaml
+```
+
+## Example rules
+
+```yaml
+# loghaven.observe.yaml
+observations:
+  - name: solana-error-spike
+    chain: solana
+    trigger:
+      metric: tx_error_rate
+      threshold: "> 2%"
+      window: 5m
+    response:
+      enable:
+        logs: debug
+        traces: full
+      duration: 15m
+      notify:
+        - channel: stderr
+        - webhook: "${ALERT_WEBHOOK}"
+
+  - name: evm-gas-anomaly
+    chain: evm
+    trigger:
+      metric: avg_gas_price
+      threshold: "> 150 gwei"
+    response:
+      enable:
+        logs: warn
+      duration: 30m
+```
+
+## Apply rules
+
+```bash
+loghaven observe apply loghaven.observe.yaml
+```
+
+## List active observations
+
+```bash
+loghaven observe list
+```
+
+## Benefits
+
+- **Version-controlled** — rules live in your repo alongside your app code
+- **Reproducible** — identical behavior across dev, staging, prod
+- **No SaaS required** — no dashboard to configure, no account to log into
+- **Zero config drift** — what's in git is what runs

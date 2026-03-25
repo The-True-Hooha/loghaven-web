@@ -1,0 +1,30 @@
+---
+title: "Solana"
+description: "Configure the Solana adapter"
+---
+
+## Config
+
+```toml
+[adapters.solana]
+enabled    = true
+rpc        = "https://api.mainnet-beta.solana.com"
+commitment = "confirmed"   # processed | confirmed | finalized
+```
+
+## What it captures
+
+- Transactions and instructions
+- Program logs
+- Account state changes (for watched programs)
+- Failed transaction error codes
+
+## Watch a specific program
+
+```toml
+[[adapters.solana.programs]]
+address = "YourProgramAddress111111111111111111111111111"
+label   = "my-program"
+```
+
+Events from this program will be tagged with `label = "my-program"` for easy filtering.

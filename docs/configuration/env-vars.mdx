@@ -1,0 +1,38 @@
+---
+title: "Environment Variables"
+description: "Override any config value with environment variables"
+---
+
+All `config.toml` values can be overridden at runtime using the `LOGHAVEN_` prefix with `_` replacing `.` and `-`.
+
+## Format
+
+```
+LOGHAVEN_<SECTION>_<KEY>=value
+```
+
+## Common variables
+
+| Variable | Equivalent config | Description |
+|---|---|---|
+| `LOGHAVEN_DAEMON_LOG_LEVEL` | `[daemon] log_level` | Log verbosity |
+| `LOGHAVEN_INGEST_PORT` | `[ingest] port` | Ingest HTTP port |
+| `LOGHAVEN_STORAGE_BACKEND` | `[storage] backend` | Storage type |
+| `LOGHAVEN_STORAGE_BUCKET` | `[storage] bucket` | Bucket name |
+| `LOGHAVEN_ADAPTERS_ETHEREUM_RPC` | `[adapters.ethereum] rpc` | Ethereum RPC URL |
+| `LOGHAVEN_ADAPTERS_SOLANA_RPC` | `[adapters.solana] rpc` | Solana RPC URL |
+
+## Using a .env file
+
+```bash
+# .env
+LOGHAVEN_STORAGE_BACKEND=r2
+LOGHAVEN_STORAGE_BUCKET=my-prod-logs
+ETH_RPC_URL=https://mainnet.infura.io/v3/...
+```
+
+```bash
+loghaven start --profile prod --env-file .env
+```
+
+<Warning>Never commit `.env` files containing secrets to version control.</Warning>

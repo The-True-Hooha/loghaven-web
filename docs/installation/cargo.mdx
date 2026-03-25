@@ -1,0 +1,29 @@
+---
+title: "Build from source"
+description: "Install LogHaven via Cargo"
+---
+
+## Prerequisites
+
+- Rust 1.75+ (`rustup update stable`)
+
+## Install
+
+```bash
+cargo install loghaven
+```
+
+## Build from source
+
+```bash
+git clone https://github.com/The-True-Hooha/loghaven
+cd loghaven
+cargo build --release
+./target/release/loghaven --version
+```
+
+## Verify
+
+```bash
+loghaven --version
+```

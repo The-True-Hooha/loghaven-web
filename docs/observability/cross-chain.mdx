@@ -1,0 +1,41 @@
+---
+title: "Cross-Chain Correlation"
+description: "Link events across Ethereum, Solana, Stellar, and off-chain systems"
+---
+
+LogHaven can correlate events across chains using a shared correlation ID — useful for bridges, cross-chain apps, and multi-chain deployments.
+
+## Correlation ID
+
+Set a `correlation_id` in your app and pass it to LogHaven's ingest endpoint. Events from different chains with the same ID are grouped automatically.
+
+```bash
+# Ingest an off-chain event with a correlation ID
+curl -X POST http://localhost:7430/ingest \
+  -H "Content-Type: application/json" \
+  -d '{
+    "correlation_id": "deploy-2026-01-15",
+    "source": "off-chain",
+    "level": "info",
+    "message": "Deployment started",
+    "metadata": { "env": "prod" }
+  }'
+```
+
+## Query correlated events
+
+```bash
+loghaven query correlation deploy-2026-01-15
+```
+
+This returns all events — onchain and off-chain — tagged with that ID, ordered by timestamp.
+
+## Example: Bridge monitoring
+
+```
+[ETH tx: bridge lock]  ──→  [Bridge relay]  ──→  [Base tx: mint]
+       ↓                           ↓                     ↓
+  correlation_id: bridge-9f2a  (same ID across all three)
+```
+
+All three events appear in a single correlated view.

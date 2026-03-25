@@ -1,0 +1,42 @@
+---
+title: "Storage Engine"
+description: "How LogHaven writes and reads from your storage backend"
+---
+
+The storage engine batches encrypted events and writes them to your chosen backend. It abstracts over S3, R2, MinIO, and local filesystem with a single interface.
+
+## Write path
+
+1. Events flow from the ingestion pipeline into a write buffer
+2. The buffer flushes every 5 seconds or when it reaches 1MB (whichever comes first)
+3. Each batch is compressed (zstd) and encrypted (AES-256-GCM)
+4. The encrypted blob is written to your storage backend with a structured key:
+
+```
+loghaven/<chain>/<date>/<hour>/<batch-id>.lhb
+```
+
+## Read path
+
+Queries from the CLI/TUI go through the daemon's query engine, which:
+
+1. Lists relevant batch files based on the query (chain, time range, tx hash)
+2. Downloads and decrypts matching batches
+3. Filters and returns matching events
+
+## Storage key structure
+
+```
+loghaven/
+  ethereum/
+    2026/01/15/
+      14/
+        001a2b3c.lhb
+        002d4e5f.lhb
+  solana/
+    2026/01/15/
+      14/
+        001a2b3c.lhb
+```
+
+This structure lets lifecycle policies target specific chains or date ranges independently.

@@ -1,0 +1,41 @@
+---
+title: "Windows"
+description: "Install LogHaven on Windows"
+---
+
+## Install script (PowerShell)
+
+```powershell
+irm https://install.loghaven.dev/windows | iex
+```
+
+Installs `loghaven.exe` to `%USERPROFILE%\.loghaven\bin` and adds it to your `PATH`.
+
+## Cargo
+
+```powershell
+cargo install loghaven
+```
+
+## Verify
+
+```powershell
+loghaven --version
+```
+
+## Run as a Windows service
+
+```powershell
+loghaven service install
+Start-Service loghaven
+```
+
+The daemon communicates via a named pipe (`\\.\pipe\loghaven`) instead of a Unix socket.
+
+## Config location
+
+On Windows, the config lives at `%USERPROFILE%\.loghaven\config.toml`.
+
+## Next step
+
+[Initialize your config](/quickstart#2-initialize-config)
