@@ -157,7 +157,6 @@ export default function InstallSection() {
         </motion.div>
 
         <div
-          className="grid-2col"
           style={{ alignItems: "start" }}
           className="grid-cols-1 lg:grid-cols-2"
         >
